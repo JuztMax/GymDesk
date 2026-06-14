@@ -1,0 +1,25 @@
+## Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Bb]in/
+[Oo]bj/
+*.dll
+*.exe
+*.pdb
+
+## NuGet Packages
+*.nupkg
+packages/
+
+## Logs & Temp
+*.log
+tmp/
+temp/
+
+## Docker local overrides
+docker-compose.override.yml
