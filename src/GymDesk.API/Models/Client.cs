@@ -1,5 +1,8 @@
-﻿namespace GymDesk.API.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace GymDesk.API.Models;
+
+[Table("clients")]
 public class Client
 {
     public int Id { get; set; }
