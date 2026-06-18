@@ -21,11 +21,11 @@ public class GymDeskDbContext : DbContext
         {
             entity.ToTable("clients");
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.FirstName).HasColumnName("firstname");      // Было first_name -> стало firstname
-            entity.Property(e => e.LastName).HasColumnName("lastname");       // Было last_name -> стало lastname
+            entity.Property(e => e.FirstName).HasColumnName("firstname");
+            entity.Property(e => e.LastName).HasColumnName("lastname");
             entity.Property(e => e.Phone).HasColumnName("phone");
             entity.Property(e => e.Email).HasColumnName("email");
-            entity.Property(e => e.RegistrationDate).HasColumnName("registrationdate"); // Проверь это поле!
+            entity.Property(e => e.RegistrationDate).HasColumnName("registrationdate");
         });
 
         modelBuilder.Entity<Trainer>(entity =>
@@ -51,7 +51,7 @@ public class GymDeskDbContext : DbContext
 
         modelBuilder.Entity<TrainingSession>(entity =>
         {
-            entity.ToTable("training_sessions");
+            entity.ToTable("trainingsessions"); // 👈 ИСПРАВЛЕНО: было training_sessions
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ClientId).HasColumnName("clientid");
             entity.Property(e => e.TrainerId).HasColumnName("trainerid");
