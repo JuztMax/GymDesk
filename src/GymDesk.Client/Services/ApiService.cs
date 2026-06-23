@@ -12,11 +12,10 @@ public class ApiService
     public ApiService(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        // Убедись, что порт совпадает с launchSettings.json API проекта
         _httpClient.BaseAddress = new Uri("https://localhost:7200/api/");
     }
 
-    // --- КЛИЕНТЫ ---
+    // --- КЛИЕНТЫ (GET) ---
     public async Task<List<ClientModel>> GetClientsAsync()
     {
         try
@@ -26,8 +25,53 @@ public class ApiService
         }
         catch (HttpRequestException ex)
         {
-            Console.WriteLine($"Ошибка API (Clients): {ex.Message}");
+            Console.WriteLine($"Ошибка API (Clients GET): {ex.Message}");
             return new List<ClientModel>();
+        }
+    }
+
+    // --- КЛИЕНТЫ (POST) ---
+    public async Task<bool> CreateClientAsync(ClientModel client)
+    {
+        try
+        {
+            var response = await _httpClient.PostAsJsonAsync("Clients", client);
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (Clients POST): {ex.Message}");
+            return false;
+        }
+    }
+
+    // --- КЛИЕНТЫ (PUT) ---
+    public async Task<bool> UpdateClientAsync(int id, ClientModel client)
+    {
+        try
+        {
+            var response = await _httpClient.PutAsJsonAsync($"Clients/{id}", client);
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (Clients PUT): {ex.Message}");
+            return false;
+        }
+    }
+
+    // --- КЛИЕНТЫ (DELETE) 👇 НОВЫЙ МЕТОД ---
+    public async Task<bool> DeleteClientAsync(int id)
+    {
+        try
+        {
+            var response = await _httpClient.DeleteAsync($"Clients/{id}");
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (Clients DELETE): {ex.Message}");
+            return false;
         }
     }
 

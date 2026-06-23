@@ -4,7 +4,7 @@ using GymDesk.Client.Models;
 using GymDesk.Client.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GymDesk.Client.Views;
+namespace GymDesk.Client.Views.Pages;
 
 public partial class TrainersPage : UserControl
 {

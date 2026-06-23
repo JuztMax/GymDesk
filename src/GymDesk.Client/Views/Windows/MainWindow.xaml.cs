@@ -3,9 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using GymDesk.Client.Services;
 using Microsoft.Extensions.DependencyInjection;
-using GymDesk.Client.Views;
+using GymDesk.Client.Views.Pages;
 
-namespace GymDesk.Client;
+namespace GymDesk.Client.Views.Windows;
 
 public partial class MainWindow : Window
 {

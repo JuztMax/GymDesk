@@ -2,6 +2,7 @@
 using GymDesk.Client.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using GymDesk.Client.Views.Windows;
 
 namespace GymDesk.Client;
 

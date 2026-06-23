@@ -1,4 +1,4 @@
-﻿<Window x:Class="GymDesk.Client.MainWindow"
+﻿<Window x:Class="GymDesk.Client.Views.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="GymDesk - Система управления" Height="600" Width="900"
