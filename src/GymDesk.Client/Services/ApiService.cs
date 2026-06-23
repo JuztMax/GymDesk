@@ -4,6 +4,7 @@ using GymDesk.Client.Models;
 using ClientModel = GymDesk.Client.Models.Client;
 
 namespace GymDesk.Client.Services;
+
 public class ApiService
 {
     private readonly HttpClient _httpClient;
@@ -11,10 +12,11 @@ public class ApiService
     public ApiService(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        // Порт должен совпадать с тем, что в launchSettings.json твоего API
+        // Убедись, что порт совпадает с launchSettings.json API проекта
         _httpClient.BaseAddress = new Uri("https://localhost:7200/api/");
     }
 
+    // --- КЛИЕНТЫ ---
     public async Task<List<ClientModel>> GetClientsAsync()
     {
         try
@@ -24,8 +26,53 @@ public class ApiService
         }
         catch (HttpRequestException ex)
         {
-            Console.WriteLine($"Ошибка API: {ex.Message}");
+            Console.WriteLine($"Ошибка API (Clients): {ex.Message}");
             return new List<ClientModel>();
+        }
+    }
+
+    // --- ТРЕНЕРЫ ---
+    public async Task<List<Trainer>> GetTrainersAsync()
+    {
+        try
+        {
+            var trainers = await _httpClient.GetFromJsonAsync<List<Trainer>>("Trainers");
+            return trainers ?? new List<Trainer>();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (Trainers): {ex.Message}");
+            return new List<Trainer>();
+        }
+    }
+
+    // --- АБОНЕМЕНТЫ ---
+    public async Task<List<Subscription>> GetSubscriptionsAsync()
+    {
+        try
+        {
+            var subs = await _httpClient.GetFromJsonAsync<List<Subscription>>("Subscriptions");
+            return subs ?? new List<Subscription>();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (Subscriptions): {ex.Message}");
+            return new List<Subscription>();
+        }
+    }
+
+    // --- ТРЕНИРОВКИ ---
+    public async Task<List<TrainingSession>> GetTrainingSessionsAsync()
+    {
+        try
+        {
+            var sessions = await _httpClient.GetFromJsonAsync<List<TrainingSession>>("TrainingSessions");
+            return sessions ?? new List<TrainingSession>();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (TrainingSessions): {ex.Message}");
+            return new List<TrainingSession>();
         }
     }
 }

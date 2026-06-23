@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="GymDesk.Client.Views.TrainingSessionsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+            <Button Content="➕ Запись на тренировку" Width="180" Margin="0,0,10,0" Click="BtnAdd_Click"/>
+            <Button Content="✏️ Изменить" Width="120" Margin="0,0,10,0" Click="BtnEdit_Click"/>
+            <Button Content="🗑️ Отменить" Width="100" Background="#e74c3c" Foreground="White" Click="BtnDelete_Click"/>
+        </StackPanel>
+
+        <!-- 👇 Добавлено x:Name="SessionsDataGrid" -->
+        <DataGrid x:Name="SessionsDataGrid"
+                  Grid.Row="1" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True" 
+                  CanUserAddRows="False"
+                  SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <!-- Проверь названия свойств в твоей модели TrainingSession -->
+                <DataGridTextColumn Header="Клиент" Binding="{Binding ClientId}" Width="*"/>
+                <DataGridTextColumn Header="Тренер" Binding="{Binding TrainerId}" Width="*"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="*"/>
+                <DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
