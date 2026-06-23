@@ -60,7 +60,7 @@ public class ApiService
         }
     }
 
-    // --- КЛИЕНТЫ (DELETE) 👇 НОВЫЙ МЕТОД ---
+    // --- КЛИЕНТЫ (DELETE) ---
     public async Task<bool> DeleteClientAsync(int id)
     {
         try
@@ -75,7 +75,7 @@ public class ApiService
         }
     }
 
-    // --- ТРЕНЕРЫ ---
+    // --- ТРЕНЕРЫ (GET) ---
     public async Task<List<Trainer>> GetTrainersAsync()
     {
         try
@@ -85,8 +85,53 @@ public class ApiService
         }
         catch (HttpRequestException ex)
         {
-            Console.WriteLine($"Ошибка API (Trainers): {ex.Message}");
+            Console.WriteLine($"Ошибка API (Trainers GET): {ex.Message}");
             return new List<Trainer>();
+        }
+    }
+
+    // --- ТРЕНЕРЫ (POST) 👇 ДОБАВЛЕНО ---
+    public async Task<bool> CreateTrainerAsync(Trainer trainer)
+    {
+        try
+        {
+            var response = await _httpClient.PostAsJsonAsync("Trainers", trainer);
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (Trainers POST): {ex.Message}");
+            return false;
+        }
+    }
+
+    // --- ТРЕНЕРЫ (PUT) 👇 ДОБАВЛЕНО ---
+    public async Task<bool> UpdateTrainerAsync(int id, Trainer trainer)
+    {
+        try
+        {
+            var response = await _httpClient.PutAsJsonAsync($"Trainers/{id}", trainer);
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (Trainers PUT): {ex.Message}");
+            return false;
+        }
+    }
+
+    // --- ТРЕНЕРЫ (DELETE) 👇 ДОБАВЛЕНО ---
+    public async Task<bool> DeleteTrainerAsync(int id)
+    {
+        try
+        {
+            var response = await _httpClient.DeleteAsync($"Trainers/{id}");
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (Trainers DELETE): {ex.Message}");
+            return false;
         }
     }
 
