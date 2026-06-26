@@ -7,13 +7,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Кнопки управления -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
-            <Button Content="➕ Запись на тренировку" Width="180" Margin="0,0,10,0" Click="BtnAdd_Click"/>
-            <Button Content="✏️ Изменить" Width="120" Margin="0,0,10,0" Click="BtnEdit_Click"/>
-            <Button Content="🗑️ Отменить" Width="100" Background="#e74c3c" Foreground="White" Click="BtnDelete_Click"/>
+            <Button x:Name="BtnAdd" 
+                    Content="➕ Запись на тренировку" Width="160" Margin="0,0,10,0" 
+                    Click="BtnAdd_Click"/>
+
+            <Button x:Name="BtnEdit" 
+                    Content="✏️ Изменить" Width="120" Margin="0,0,10,0" 
+                    Click="BtnEdit_Click"/>
+
+            <Button x:Name="BtnDelete" 
+                    Content="🗑️ Отменить" Width="100" 
+                    Background="#e74c3c" Foreground="White" 
+                    Click="BtnDelete_Click"/>
         </StackPanel>
 
-        <!-- 👇 Добавлено x:Name="SessionsDataGrid" -->
+        <!-- Таблица данных -->
         <DataGrid x:Name="SessionsDataGrid"
                   Grid.Row="1" 
                   AutoGenerateColumns="False" 
@@ -22,11 +32,24 @@
                   SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                <!-- Проверь названия свойств в твоей модели TrainingSession -->
-                <DataGridTextColumn Header="Клиент" Binding="{Binding ClientId}" Width="*"/>
-                <DataGridTextColumn Header="Тренер" Binding="{Binding TrainerId}" Width="*"/>
-                <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="*"/>
-                <DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="*"/>
+
+                <!-- 👇 ИСПРАВЛЕНО: Привязка к Фамилии Клиента -->
+                <DataGridTextColumn Header="Клиент" Binding="{Binding Client.LastName}" Width="*"/>
+
+                <!-- 👇 ИСПРАВЛЕНО: Привязка к Фамилии Тренера -->
+                <DataGridTextColumn Header="Тренер" Binding="{Binding Trainer.LastName}" Width="*"/>
+
+                <!-- 👇 ИСПРАВЛЕНО: Формат даты ДД.ММ.ГГГГ -->
+                <DataGridTextColumn Header="Дата" 
+                                    Binding="{Binding SessionDate, StringFormat='dd.MM.yyyy'}" 
+                                    Width="100"/>
+
+                <!-- 👇 ИСПРАВЛЕНО: Формат времени ЧЧ:ММ -->
+                <DataGridTextColumn Header="Время" 
+                                    Binding="{Binding SessionTime, StringFormat='HH:mm'}" 
+                                    Width="80"/>
+
+                <DataGridTextColumn Header="Заметки" Binding="{Binding Notes}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

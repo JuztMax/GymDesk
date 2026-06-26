@@ -1,8 +1,10 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Threading;
+using System.Windows;
 using GymDesk.Client.Services;
+using GymDesk.Client.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using GymDesk.Client.Views.Windows;
 
 namespace GymDesk.Client;
 
@@ -16,6 +18,14 @@ public partial class App : Application
     protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
+        // 👇 ДОБАВЛЕНО: Принудительная русская локаль для всего приложения
+        // Исправляет формат дат (dd.MM.yyyy), времени и чисел везде
+        var culture = new CultureInfo("ru-RU");
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = culture;
 
         _host = Host.CreateDefaultBuilder()
             .ConfigureServices(services =>

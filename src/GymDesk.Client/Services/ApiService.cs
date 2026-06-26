@@ -208,4 +208,48 @@ public class ApiService
             return new List<TrainingSession>();
         }
     }
+    // --- ТРЕНИРОВКИ (POST) ---
+    public async Task<bool> CreateTrainingSessionAsync(TrainingSession session)
+    {
+        try
+        {
+            var response = await _httpClient.PostAsJsonAsync("TrainingSessions", session);
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (TrainingSessions POST): {ex.Message}");
+            return false;
+        }
+    }
+
+    // --- ТРЕНИРОВКИ (PUT) ---
+    public async Task<bool> UpdateTrainingSessionAsync(int id, TrainingSession session)
+    {
+        try
+        {
+            var response = await _httpClient.PutAsJsonAsync($"TrainingSessions/{id}", session);
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (TrainingSessions PUT): {ex.Message}");
+            return false;
+        }
+    }
+
+    // --- ТРЕНИРОВКИ (DELETE) ---
+    public async Task<bool> DeleteTrainingSessionAsync(int id)
+    {
+        try
+        {
+            var response = await _httpClient.DeleteAsync($"TrainingSessions/{id}");
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (TrainingSessions DELETE): {ex.Message}");
+            return false;
+        }
+    }
 }

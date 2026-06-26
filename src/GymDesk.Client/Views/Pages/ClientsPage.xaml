@@ -9,24 +9,35 @@
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Панель кнопок -->
             <RowDefinition Height="*"/>
-            <!-- Таблица -->
         </Grid.RowDefinitions>
 
         <!-- ПАНЕЛЬ УПРАВЛЕНИЯ -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
             <Button Content="➕ Добавить" Width="120" Margin="0,0,10,0" Click="BtnAdd_Click"/>
-            <Button Content="️ Редактировать" Width="120" Margin="0,0,10,0" Click="BtnEdit_Click"/>
+            <Button Content="✏️ Редактировать" Width="120" Margin="0,0,10,0" Click="BtnEdit_Click"/>
             <Button Content="🗑️ Удалить" Width="120" Background="#e74c3c" Foreground="White" Click="BtnDelete_Click"/>
         </StackPanel>
 
         <!-- ТАБЛИЦА ДАННЫХ -->
         <DataGrid x:Name="ClientsDataGrid" 
                   Grid.Row="1" 
-                  AutoGenerateColumns="True" 
+                  AutoGenerateColumns="False" 
                   IsReadOnly="True" 
                   CanUserAddRows="False"
-                  SelectionMode="Single"/>
+                  SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="*"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="*"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="120"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+
+                <!-- 👇 ИСПРАВЛЕНО: Ручной формат даты ДД.ММ.ГГГГ -->
+                <DataGridTextColumn Header="Дата регистрации" 
+                                    Binding="{Binding RegistrationDate, StringFormat='dd.MM.yyyy'}" 
+                                    Width="130"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

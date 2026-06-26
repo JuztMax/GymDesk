@@ -24,7 +24,7 @@
                         Style="{StaticResource MenuButtonStyle}" 
                         Click="NavButton_Click"/>
 
-                <Button Content="️ Тренеры" Tag="TrainersPage" 
+                <Button Content="👨‍🏫 Тренеры" Tag="TrainersPage" 
                         Style="{StaticResource MenuButtonStyle}" 
                         Click="NavButton_Click"/>
 

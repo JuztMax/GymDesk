@@ -20,7 +20,14 @@ public class TrainingSessionsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TrainingSession>>> GetTrainingSessions()
     {
-        var sessions = await _context.TrainingSessions.ToListAsync();
+        // 👇 ДОБАВЛЕНО: Сортировка по Дате и Времени
+        var sessions = await _context.TrainingSessions
+            .Include(s => s.Client)
+            .Include(s => s.Trainer)
+            .OrderBy(s => s.SessionDate)   // 1. Сначала сортируем по дате (от старых к новым)
+            .ThenBy(s => s.SessionTime)    // 2. Внутри одной даты сортируем по времени
+            .ToListAsync();
+
         return Ok(sessions);
     }
 
