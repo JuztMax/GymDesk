@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -15,17 +13,22 @@ builder.Services.AddDbContext<GymDeskDbContext>(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// 👇 АВТОМАТИЧЕСКОЕ СОЗДАНИЕ БД (Для колледжа и Docker)
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var db = scope.ServiceProvider.GetRequiredService<GymDeskDbContext>();
+    // EnsureCreated создаст таблицы, если их нет. 
+    // Если уже есть — ничего не сделает. Безопасно!
+    db.Database.EnsureCreated();
 }
 
+// Configure the HTTP request pipeline.
+// Убрал проверку IsDevelopment, чтобы Swagger работал везде (в том числе в Docker)
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
