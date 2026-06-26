@@ -20,7 +20,11 @@ public class SubscriptionsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Subscription>>> GetSubscriptions()
     {
-        var subscriptions = await _context.Subscriptions.ToListAsync();
+        // 👇 ДОБАВЛЕНО .Include(s => s.Client) — теперь клиент загружается вместе с абонементом
+        var subscriptions = await _context.Subscriptions
+            .Include(s => s.Client)
+            .ToListAsync();
+
         return Ok(subscriptions);
     }
 

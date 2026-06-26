@@ -7,13 +7,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Кнопки управления -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
-            <Button Content="➕ Новый абонемент" Width="150" Margin="0,0,10,0" Click="BtnAdd_Click"/>
-            <Button Content="✏️ Изменить" Width="120" Margin="0,0,10,0" Click="BtnEdit_Click"/>
-            <Button Content="🗑️ Удалить" Width="100" Background="#e74c3c" Foreground="White" Click="BtnDelete_Click"/>
+            <Button x:Name="BtnAdd" 
+                    Content="➕ Новый абонемент" Width="150" Margin="0,0,10,0" 
+                    Click="BtnAdd_Click"/>
+
+            <Button x:Name="BtnEdit" 
+                    Content="✏️ Изменить" Width="120" Margin="0,0,10,0" 
+                    Click="BtnEdit_Click"/>
+
+            <Button x:Name="BtnDelete" 
+                    Content="🗑️ Удалить" Width="100" 
+                    Background="#e74c3c" Foreground="White" 
+                    Click="BtnDelete_Click"/>
         </StackPanel>
 
-        <!-- 👇 Добавлено x:Name="SubscriptionsDataGrid" -->
+        <!-- Таблица данных -->
         <DataGrid x:Name="SubscriptionsDataGrid"
                   Grid.Row="1" 
                   AutoGenerateColumns="False" 
@@ -22,11 +32,22 @@
                   SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                <!-- Проверь названия свойств в твоей модели Subscription -->
-                <DataGridTextColumn Header="Клиент" Binding="{Binding ClientId}" Width="*"/>
+
+                <!-- Показываем Фамилию клиента -->
+                <DataGridTextColumn Header="Клиент" Binding="{Binding Client.LastName}" Width="*"/>
+
                 <DataGridTextColumn Header="Тип" Binding="{Binding Type}" Width="*"/>
-                <DataGridTextColumn Header="Начало" Binding="{Binding StartDate}" Width="*"/>
-                <DataGridTextColumn Header="Конец" Binding="{Binding EndDate}" Width="*"/>
+
+                <!-- 👇 ИЗМЕНЕНО: Формат ДД.ММ.ГГГГ и фиксированная ширина -->
+                <DataGridTextColumn Header="Начало" 
+                                    Binding="{Binding StartDate, StringFormat='dd.MM.yyyy'}" 
+                                    Width="100"/>
+
+                <DataGridTextColumn Header="Конец" 
+                                    Binding="{Binding EndDate, StringFormat='dd.MM.yyyy'}" 
+                                    Width="100"/>
+
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat='N2'}" Width="80"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

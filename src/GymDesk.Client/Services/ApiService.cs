@@ -149,6 +149,50 @@ public class ApiService
             return new List<Subscription>();
         }
     }
+    // --- АБОНЕМЕНТЫ (POST) ---
+    public async Task<bool> CreateSubscriptionAsync(Subscription subscription)
+    {
+        try
+        {
+            var response = await _httpClient.PostAsJsonAsync("Subscriptions", subscription);
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (Subscriptions POST): {ex.Message}");
+            return false;
+        }
+    }
+
+    // --- АБОНЕМЕНТЫ (PUT) ---
+    public async Task<bool> UpdateSubscriptionAsync(int id, Subscription subscription)
+    {
+        try
+        {
+            var response = await _httpClient.PutAsJsonAsync($"Subscriptions/{id}", subscription);
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (Subscriptions PUT): {ex.Message}");
+            return false;
+        }
+    }
+
+    // --- АБОНЕМЕНТЫ (DELETE) ---
+    public async Task<bool> DeleteSubscriptionAsync(int id)
+    {
+        try
+        {
+            var response = await _httpClient.DeleteAsync($"Subscriptions/{id}");
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Ошибка API (Subscriptions DELETE): {ex.Message}");
+            return false;
+        }
+    }
 
     // --- ТРЕНИРОВКИ ---
     public async Task<List<TrainingSession>> GetTrainingSessionsAsync()
